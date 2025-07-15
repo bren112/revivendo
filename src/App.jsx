@@ -1,6 +1,5 @@
 "use client"
-
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import "./App.css"
 
 // Inline SVG Icons
@@ -149,7 +148,11 @@ function App() {
     minutes: 0,
     seconds: 0,
   })
-  
+
+  // Touch handling for mobile carousel
+  const carouselRef = useRef(null)
+  const [touchStart, setTouchStart] = useState(null)
+  const [touchEnd, setTouchEnd] = useState(null)
 
   // Auto-rotate carousel
   useEffect(() => {
@@ -161,11 +164,11 @@ function App() {
 
   useEffect(() => {
     const targetDate = new Date("2025-07-25T21:00:00-03:00") // Horário de Brasília
-  
+
     const timer = setInterval(() => {
       const now = new Date()
       const difference = targetDate - now
-  
+
       if (difference <= 0) {
         clearInterval(timer)
         setTimeLeft({
@@ -176,18 +179,42 @@ function App() {
         })
         return
       }
-  
+
       const days = Math.floor(difference / (1000 * 60 * 60 * 24))
       const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
       const minutes = Math.floor((difference / (1000 * 60)) % 60)
       const seconds = Math.floor((difference / 1000) % 60)
-  
+
       setTimeLeft({ days, hours, minutes, seconds })
     }, 1000)
-  
+
     return () => clearInterval(timer)
   }, [])
-  
+
+  // Touch handlers for mobile swipe
+  const handleTouchStart = (e) => {
+    setTouchEnd(null)
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > 50
+    const isRightSwipe = distance < -50
+
+    if (isLeftSwipe) {
+      nextDJ()
+    }
+    if (isRightSwipe) {
+      prevDJ()
+    }
+  }
 
   const nextDJ = () => {
     setCurrentDJ((prev) => (prev + 1) % djs.length)
@@ -236,7 +263,6 @@ function App() {
             <span className="year-digit">9</span>
           </div>
         </div>
-
         <p className="subtitle">A festa que vai te transportar de volta aos melhores momentos da década!</p>
 
         {/* Countdown */}
@@ -257,35 +283,93 @@ function App() {
       {/* DJs Carousel */}
       <section className="section">
         <h2 className="section-title">DJS CONFIRMADOS</h2>
-
         <div className="carousel-container">
           <div className="carousel-wrapper">
-            <button onClick={prevDJ} className="btn btn-ghost carousel-nav prev">
+            {/* Desktop Navigation Buttons */}
+            <button onClick={prevDJ} className="btn btn-ghost carousel-nav prev desktop-only">
               <ChevronLeft className="btn-icon" />
             </button>
 
-            <div className="carousel-content">
-              {[-1, 0, 1].map((offset) => {
-                const index = (currentDJ + offset + djs.length) % djs.length
-                const dj = djs[index]
-                const isActive = offset === 0
-
-                return (
-                  <div key={dj.id} className={`dj-card ${isActive ? "active" : "inactive"}`}>
-                    <div className="dj-card-content">
-                      <div className="dj-image-container">
-                        <img src={dj.image || "/placeholder.svg"} alt={dj.name} className="dj-image" />
-                        {isActive && <div className="dj-glow"></div>}
+            {/* Carousel Content */}
+            <div
+              className="carousel-content"
+              ref={carouselRef}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
+              {/* Desktop View - Show 3 DJs */}
+              <div className="carousel-desktop">
+                {[-1, 0, 1].map((offset) => {
+                  const index = (currentDJ + offset + djs.length) % djs.length
+                  const dj = djs[index]
+                  const isActive = offset === 0
+                  return (
+                    <div key={`desktop-${dj.id}`} className={`dj-card ${isActive ? "active" : "inactive"}`}>
+                      <div className="dj-card-content">
+                        <div className="dj-image-container">
+                          <img src={dj.image || "/placeholder.svg"} alt={dj.name} className="dj-image" />
+                          {isActive && <div className="dj-glow"></div>}
+                        </div>
+                        <h3 className="dj-name">{dj.name}</h3>
+                        <span className="dj-genre">{dj.genre}</span>
                       </div>
-                      <h3 className="dj-name">{dj.name}</h3>
-                      <span className="dj-genre">{dj.genre}</span>
                     </div>
-                  </div>
-                )
-              })}
+                  )
+                })}
+              </div>
+
+              {/* Mobile View - Show 3 DJs horizontally */}
+              <div className="carousel-mobile">
+                <div className="carousel-track">
+                  {[-1, 0, 1].map((offset) => {
+                    const index = (currentDJ + offset + djs.length) % djs.length
+                    const dj = djs[index]
+                    const isActive = offset === 0
+                    const isSemiActive = Math.abs(offset) === 1
+                    return (
+                      <div
+                        key={`mobile-${dj.id}`}
+                        className={`dj-card-mobile ${isActive ? "active" : isSemiActive ? "semi-active" : ""}`}
+                      >
+                        <div className="dj-card-content">
+                          <div className="dj-image-container">
+                            <img src={dj.image || "/placeholder.svg"} alt={dj.name} className="dj-image" />
+                            {isActive && <div className="dj-glow"></div>}
+                          </div>
+                          <h3 className="dj-name">{dj.name}</h3>
+                          <span className="dj-genre">{dj.genre}</span>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
             </div>
 
-            <button onClick={nextDJ} className="btn btn-ghost carousel-nav next">
+            {/* Desktop Navigation Buttons */}
+            <button onClick={nextDJ} className="btn btn-ghost carousel-nav next desktop-only">
+              <ChevronRight className="btn-icon" />
+            </button>
+          </div>
+
+          {/* Mobile Navigation Dots */}
+          <div className="carousel-dots mobile-only">
+            {djs.map((_, index) => (
+              <button
+                key={index}
+                className={`carousel-dot ${index === currentDJ ? "active" : ""}`}
+                onClick={() => setCurrentDJ(index)}
+              />
+            ))}
+          </div>
+
+          {/* Mobile Navigation Buttons */}
+          <div className="carousel-nav-mobile mobile-only">
+            <button onClick={prevDJ} className="btn btn-ghost carousel-nav-btn">
+              <ChevronLeft className="btn-icon" />
+            </button>
+            <button onClick={nextDJ} className="btn btn-ghost carousel-nav-btn">
               <ChevronRight className="btn-icon" />
             </button>
           </div>
@@ -296,7 +380,6 @@ function App() {
       <section className="section">
         <div className="container">
           <h2 className="section-title">INFORMAÇÕES</h2>
-
           <div className="accordion">
             <div className="accordion-item">
               <button className="accordion-trigger" onClick={() => toggleAccordion("lineup")}>
@@ -386,8 +469,6 @@ function App() {
                 </div>
               </div>
             </div>
-
-        
           </div>
         </div>
       </section>
@@ -396,7 +477,6 @@ function App() {
       <section id="tickets" className="section">
         <div className="container">
           <h2 className="section-title">INGRESSOS</h2>
-
           <div className="tickets-grid">
             {tickets.map((ticket) => (
               <div key={ticket.id} className={`ticket-card ${ticket.color}`}>
@@ -405,18 +485,16 @@ function App() {
                   <p className="ticket-description">{ticket.description}</p>
                   <div className="ticket-price">R$ {ticket.price}</div>
                   <button
-                        onClick={() => {
-                          if (ticket.id === 1) {
-                            window.location.href = "https://festfy.shop/"
-                          }
-                        }}
-                        className={`ticket-button ${ticket.color}`}
-                        disabled={ticket.id !== 1}
-                      >
-                        {ticket.id === 1 ? "COMPRAR AGORA" : "INDISPONÍVEL"}
-                      </button>
-
-
+                    onClick={() => {
+                      if (ticket.id === 1) {
+                        window.location.href = "https://festfy.shop/"
+                      }
+                    }}
+                    className={`ticket-button ${ticket.color}`}
+                    disabled={ticket.id !== 1}
+                  >
+                    {ticket.id === 1 ? "COMPRAR AGORA" : "INDISPONÍVEL"}
+                  </button>
                 </div>
               </div>
             ))}
@@ -431,15 +509,12 @@ function App() {
             <button className="modal-close" onClick={closeModal}>
               <X className="btn-icon" />
             </button>
-
             <h2 className="modal-title">Finalizar Compra</h2>
-
             <div className="ticket-summary">
               <h4 className="summary-name">{selectedTicket.name}</h4>
               <p className="summary-description">{selectedTicket.description}</p>
               <p className="summary-price">R$ {selectedTicket.price}</p>
             </div>
-
             <div className="space-y-4">
               <div className="form-group">
                 <label htmlFor="name" className="form-label">
@@ -471,7 +546,6 @@ function App() {
                 </select>
               </div>
             </div>
-
             <button className="btn btn-primary" style={{ width: "100%", marginTop: "1.5rem" }}>
               FINALIZAR PAGAMENTO
             </button>
@@ -482,13 +556,9 @@ function App() {
       {/* Footer */}
       <footer className="footer">
         <div className="footer-content">
-          <div className="social-links">
-        
-          </div>
-
+          <div className="social-links"></div>
           <div className="footer-text">
             <p>© 2025 FESTFY. Todos os direitos reservados.</p>
-           
           </div>
         </div>
       </footer>
