@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect, useRef } from "react"
 import "./App.css"
-
+import img from './embreve.png'
 // Inline SVG Icons
 const ChevronLeft = ({ className }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,33 +82,27 @@ const X = ({ className }) => (
 const djs = [
   {
     id: 1,
-    name: "MLK BARULHENTO",
+    name: "XXX XXXXXXXXX",
     genre: "",
-    image: "/placeholder.svg?height=300&width=300",
+    image: img,
   },
   {
     id: 2,
-    name: "DJ SUYOK",
+    name: "XX XXXXX",
     genre: "",
-    image: "/placeholder.svg?height=300&width=300",
+    image: img,
   },
   {
     id: 3,
-    name: "EM BREVE",
+    name: "??????",
     genre: "",
-    image: "/placeholder.svg?height=300&width=300",
+    image: img,
   },
   {
     id: 4,
-    name: "EM BREVE",
+    name: "??????",
     genre: "",
-    image: "/placeholder.svg?height=300&width=300",
-  },
-  {
-    id: 5,
-    name: "EM BREVE",
-    genre: "",
-    image: "/placeholder.svg?height=300&width=300",
+    image: img,
   },
 ]
 
@@ -282,7 +276,7 @@ function App() {
 
       {/* DJs Carousel */}
       <section className="section">
-        <h2 className="section-title">DJS CONFIRMADOS</h2>
+        <h2 className="section-title">ATRAÇÕES CONFIRMADAS</h2>
         <div className="carousel-container">
           <div className="carousel-wrapper">
             {/* Desktop Navigation Buttons */}
