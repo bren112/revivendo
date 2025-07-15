@@ -125,7 +125,7 @@ const tickets = [
     id: 2,
     name: "SEGUNDO LOTE ",
     price: 31,
-    description: "INDISPONÍVEL",
+    description: "EM BREVE",
     color: "purple",
   },
   {
@@ -144,11 +144,12 @@ function App() {
   const [openAccordion, setOpenAccordion] = useState(null)
   const [showModal, setShowModal] = useState(false)
   const [timeLeft, setTimeLeft] = useState({
-    days: 11,
-    hours: 8,
-    minutes: 42,
-    seconds: 30,
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
   })
+  
 
   // Auto-rotate carousel
   useEffect(() => {
@@ -158,24 +159,35 @@ function App() {
     return () => clearInterval(interval)
   }, [])
 
-  // Countdown timer
   useEffect(() => {
+    const targetDate = new Date("2025-07-25T21:00:00-03:00") // Horário de Brasília
+  
     const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev.seconds > 0) {
-          return { ...prev, seconds: prev.seconds - 1 }
-        } else if (prev.minutes > 0) {
-          return { ...prev, minutes: prev.minutes - 1, seconds: 59 }
-        } else if (prev.hours > 0) {
-          return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 }
-        } else if (prev.days > 0) {
-          return { ...prev, days: prev.days - 1, hours: 23, minutes: 59, seconds: 59 }
-        }
-        return prev
-      })
+      const now = new Date()
+      const difference = targetDate - now
+  
+      if (difference <= 0) {
+        clearInterval(timer)
+        setTimeLeft({
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+        })
+        return
+      }
+  
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
+      const minutes = Math.floor((difference / (1000 * 60)) % 60)
+      const seconds = Math.floor((difference / 1000) % 60)
+  
+      setTimeLeft({ days, hours, minutes, seconds })
     }, 1000)
+  
     return () => clearInterval(timer)
   }, [])
+  
 
   const nextDJ = () => {
     setCurrentDJ((prev) => (prev + 1) % djs.length)
@@ -316,19 +328,19 @@ function App() {
                   <div className="rules-section allowed">
                     <h4>✅ PERMITIDO:</h4>
                     <ul className="rules-list">
-                      <li>• Câmeras e celulares</li>
-                      <li>• Roupas neon e temáticas</li>
-                      <li>• Acessórios luminosos</li>
-                      <li>• Garrafas de água lacradas</li>
+                      <li>• Coolers</li>
+                      <li>• Bic's</li>
+                      <li>• Vapers</li>
+                      <li>• Garrafas de plástico</li>
                     </ul>
                   </div>
                   <div className="rules-section forbidden">
                     <h4>❌ PROIBIDO:</h4>
                     <ul className="rules-list">
-                      <li>• Bebidas alcoólicas</li>
+                      <li>• Garrafas de vidro</li>
                       <li>• Objetos cortantes</li>
                       <li>• Drogas ilícitas</li>
-                      <li>• Animais (exceto cães-guia)</li>
+                      <li>• Brigas</li>
                     </ul>
                   </div>
                 </div>
@@ -345,15 +357,15 @@ function App() {
                   <div className="location-info">
                     <MapPin className="location-icon" />
                     <div>
-                      <div className="location-title">Centro de Convenções Neon Arena</div>
-                      <div className="location-subtitle">Av. Futurista, 2019 - Centro, São Paulo</div>
+                      <div className="location-title">Divulgado no dia do Evento!</div>
+                      <div className="location-subtitle">Santa Rita do Passa-Quatro</div>
                     </div>
                   </div>
                   <div className="location-info">
                     <Clock className="location-icon" />
                     <div>
-                      <div className="location-title">Sábado, 15 de Junho de 2024</div>
-                      <div className="location-subtitle">22h às 06h</div>
+                      <div className="location-title">Sábado, 25 de Julho de 2025</div>
+                      <div className="location-subtitle">horário em breve...</div>
                     </div>
                   </div>
                 </div>
@@ -368,10 +380,9 @@ function App() {
               <div className={`accordion-content ${openAccordion === "tickets-info" ? "" : "closed"}`}>
                 <div className="space-y-4">
                   <p>• Ingressos limitados por categoria</p>
-                  <p>• Meia-entrada disponível para estudantes, idosos e PCD</p>
-                  <p>• Ingresso digital enviado por e-mail</p>
-                  <p>• Apresentar documento com foto na entrada</p>
-                  <p>• Transferência de titularidade até 24h antes do evento</p>
+                  <p>• Ingresso via PIX</p>
+                  <p>• Pagou ja cai na lista de pagos automaticamente</p>
+                  <p>• Qualquer dúvida tratar com os adm's</p>
                 </div>
               </div>
             </div>
@@ -393,9 +404,19 @@ function App() {
                   <h3 className="ticket-name">{ticket.name}</h3>
                   <p className="ticket-description">{ticket.description}</p>
                   <div className="ticket-price">R$ {ticket.price}</div>
-                  <button onClick={() => openTicketModal(ticket)} className={`ticket-button ${ticket.color}`}>
-                    COMPRAR AGORA
-                  </button>
+                  <button
+                        onClick={() => {
+                          if (ticket.id === 1) {
+                            window.location.href = "https://festfy.shop/"
+                          }
+                        }}
+                        className={`ticket-button ${ticket.color}`}
+                        disabled={ticket.id !== 1}
+                      >
+                        {ticket.id === 1 ? "COMPRAR AGORA" : "INDISPONÍVEL"}
+                      </button>
+
+
                 </div>
               </div>
             ))}
@@ -462,20 +483,12 @@ function App() {
       <footer className="footer">
         <div className="footer-content">
           <div className="social-links">
-            <button className="social-btn instagram">
-              <Instagram className="social-icon" />
-            </button>
-            <button className="social-btn whatsapp">
-              <MessageCircle className="social-icon" />
-            </button>
-            <button className="social-btn audio" onClick={() => setIsPlaying(!isPlaying)}>
-              {isPlaying ? <VolumeX className="social-icon" /> : <Volume2 className="social-icon" />}
-            </button>
+        
           </div>
 
           <div className="footer-text">
-            <p>© 2024 (RE)VIVENDO 2019. Todos os direitos reservados.</p>
-            <p>Produção: Neon Events | Contato: contato@revivendo2019.com</p>
+            <p>© 2025 FESTFY. Todos os direitos reservados.</p>
+           
           </div>
         </div>
       </footer>

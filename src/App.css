@@ -18,6 +18,15 @@ body {
   color: #fff;
   overflow-x: hidden;
 }
+.ticket-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ticket-button:disabled :hover {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 /* Animated Background */
 .animated-background {
