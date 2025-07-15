@@ -50,25 +50,57 @@
   padding: 2rem 0;
 }
 
-/* Mobile Carousel */
+/* Mobile Carousel - Horizontal Layout */
 .carousel-mobile {
   display: none;
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
+  padding: 2rem 0;
 }
 
 .carousel-track {
   display: flex;
-  width: 500%; /* 5 DJs * 100% */
-  transition: transform 0.3s ease-in-out;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0 1rem;
 }
 
 .dj-card-mobile {
-  width: 20%; /* 100% / 5 DJs */
   flex-shrink: 0;
   display: flex;
   justify-content: center;
-  padding: 1rem;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+/* Mobile DJ Cards - Show 3 horizontally like desktop but smaller */
+.carousel-mobile .dj-card-mobile:nth-child(1),
+.carousel-mobile .dj-card-mobile:nth-child(2),
+.carousel-mobile .dj-card-mobile:nth-child(3),
+.carousel-mobile .dj-card-mobile:nth-child(4),
+.carousel-mobile .dj-card-mobile:nth-child(5) {
+  display: block;
+}
+
+/* Active and inactive states for mobile */
+.carousel-mobile .dj-card-mobile {
+  transform: scale(0.7);
+  opacity: 0.5;
+}
+
+/* Calculate which cards should be visible based on currentDJ */
+.carousel-mobile .dj-card-mobile.active {
+  transform: scale(0.9);
+  opacity: 1;
+  z-index: 2;
+}
+
+.carousel-mobile .dj-card-mobile.semi-active {
+  transform: scale(0.8);
+  opacity: 0.7;
+  z-index: 1;
 }
 
 /* Mobile Navigation Dots */
@@ -178,8 +210,8 @@
 
 .dj-image-container {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 250px; /* Aumentado para desktop */
+  height: 250px; /* Aumentado para desktop */
   margin: 0 auto 1rem;
   border-radius: 50%;
   overflow: hidden;
@@ -235,31 +267,49 @@
   }
 
   .carousel-container {
-    padding: 0 1rem;
+    padding: 0 0.5rem;
   }
 
   .dj-image-container {
-    width: 150px;
-    height: 150px;
+    width: 150px; /* Aumentado para mobile */
+    height: 150px; /* Aumentado para mobile */
   }
 
   .dj-name {
-    font-size: 1.1rem;
+    font-size: 1.1rem; /* Ajustado para mobile */
+  }
+
+  .dj-genre {
+    font-size: 0.9rem; /* Ajustado para mobile */
   }
 
   .carousel-nav {
     display: none;
   }
+
+  /* Show 3 DJs horizontally on mobile */
+  .carousel-track {
+    gap: 0.3rem;
+  }
 }
 
 @media (max-width: 480px) {
   .dj-image-container {
-    width: 120px;
-    height: 120px;
+    width: 120px; /* Aumentado para mobile menor */
+    height: 120px; /* Aumentado para mobile menor */
   }
 
   .dj-name {
-    font-size: 1rem;
+    font-size: 1rem; /* Ajustado para mobile menor */
+  }
+
+  .dj-genre {
+    font-size: 0.8rem; /* Ajustado para mobile menor */
+  }
+
+  .carousel-track {
+    gap: 0.2rem;
+    padding: 0 0.5rem;
   }
 
   .carousel-dots {
@@ -267,8 +317,8 @@
   }
 
   .carousel-dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
   }
 }
 
@@ -757,6 +807,8 @@ body {
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
 }
 
 .ticket-button.pink {
