@@ -405,7 +405,7 @@ function App() {
                   <div className="rules-section allowed">
                     <h4>✅ PERMITIDO:</h4>
                     <ul className="rules-list">
-                      <li>• Coolers</li>
+                    
                       <li>• Bic's</li>
                       <li>• Vapers</li>
                       <li>• Garrafas de plástico</li>
@@ -441,8 +441,8 @@ function App() {
                   <div className="location-info">
                     <Clock className="location-icon" />
                     <div>
-                      <div className="location-title">Sábado, 25 de Julho de 2025</div>
-                      <div className="location-subtitle">horário em breve...</div>
+                      <div className="location-title">Sexta-feira, 25 de Julho de 2025</div>
+                      <div className="location-subtitle">21:00 </div>
                     </div>
                   </div>
                 </div>
