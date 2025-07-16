@@ -109,21 +109,21 @@ const djs = [
 const tickets = [
   {
     id: 1,
-    name: "PRIMEIRO LOTE",
+    name: "LOTE PROMOCIONAL",
     price: 26,
-    description: "LOTE ATUAL",
+    description: "ESGOTADO",
     color: "pink",
   },
   {
     id: 2,
-    name: "SEGUNDO LOTE ",
+    name: "PRIMEIRO LOTE ",
     price: 31,
-    description: "EM BREVE",
+    description: "LOTE ATUAL",
     color: "purple",
   },
   {
     id: 3,
-    name: "TERCEIRO LOTE",
+    name: "SEGUNDO LOTE",
     price: 36,
     description: "INDISPONÍVEL",
     color: "blue",
@@ -480,14 +480,14 @@ function App() {
                   <div className="ticket-price">R$ {ticket.price}</div>
                   <button
                     onClick={() => {
-                      if (ticket.id === 1) {
+                      if (ticket.id === 2) {
                         window.location.href = "https://festfy.shop/"
                       }
                     }}
                     className={`ticket-button ${ticket.color}`}
-                    disabled={ticket.id !== 1}
+                    disabled={ticket.id !== 2}
                   >
-                    {ticket.id === 1 ? "COMPRAR AGORA" : "INDISPONÍVEL"}
+                    {ticket.id === 2 ? "COMPRAR AGORA" : "INDISPONÍVEL"}
                   </button>
                 </div>
               </div>
