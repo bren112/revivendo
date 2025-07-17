@@ -2,6 +2,8 @@
 import { useState, useEffect, useRef } from "react"
 import "./App.css"
 import img from './embreve.png'
+import djone from './mlkbarulhento.png'
+import djtwo from './suyok.png'
 // Inline SVG Icons
 const ChevronLeft = ({ className }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,15 +84,15 @@ const X = ({ className }) => (
 const djs = [
   {
     id: 1,
-    name: "XXX XXXXXXXXX",
+    name: "MLK BARULHENTO",
     genre: "",
-    image: img,
+    image: djone,
   },
   {
     id: 2,
-    name: "XX XXXXX",
+    name: "DJ SUYOK",
     genre: "",
-    image: img,
+    image: djtwo,
   },
   {
     id: 3,
@@ -98,12 +100,7 @@ const djs = [
     genre: "",
     image: img,
   },
-  {
-    id: 4,
-    name: "??????",
-    genre: "",
-    image: img,
-  },
+
 ]
 
 const tickets = [
