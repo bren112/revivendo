@@ -106,8 +106,8 @@ const djs = [
 const tickets = [
   {
     id: 1,
-    name: "TERCEIRO LOTE",
-    price: 26,
+    name: "EM BREVE",
+    price: 0,
     description: "EM BREVE",
     color: "pink",
   },
