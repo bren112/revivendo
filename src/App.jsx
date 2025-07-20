@@ -4,6 +4,7 @@ import "./App.css"
 import img from './embreve.png'
 import djone from './mlkbarulhento.png'
 import djtwo from './suyok.png'
+import djtree from './virtu.png'
 // Inline SVG Icons
 const ChevronLeft = ({ className }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,9 +97,9 @@ const djs = [
   },
   {
     id: 3,
-    name: "??????",
+    name: "DJ VIRTU",
     genre: "",
-    image: img,
+    image: djtree,
   },
 
 ]
@@ -106,8 +107,8 @@ const djs = [
 const tickets = [
   {
     id: 1,
-    name: "TERCEIRO LOTE",
-    price: 26,
+    name: "EM BREVE",
+    price: 0,
     description: "EM BREVE",
     color: "pink",
   },
