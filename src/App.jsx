@@ -105,13 +105,7 @@ const djs = [
 ]
 
 const tickets = [
-  {
-    id: 3,
-    name: "TERCEIRO LOTE",
-    price: 41,
-    description: "LOTE ATUAL",
-    color: "pink",
-  },
+
   {
     id: 1,
     name: "PRIMEIRO LOTE ",
@@ -126,6 +120,13 @@ const tickets = [
     description: "ESGOTADO",
     color: "blue",
   },
+    {
+    id: 3,
+    name: "TERCEIRO LOTE",
+    price: 41,
+    description: "LOTE ATUAL",
+    color: "pink",
+  }
 ]
 
 function App() {
