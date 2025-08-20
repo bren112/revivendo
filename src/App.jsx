@@ -85,21 +85,21 @@ const X = ({ className }) => (
 const djs = [
   {
     id: 1,
-    name: "MLK BARULHENTO",
+    name: "EM BREVE",
     genre: "",
-    image: djone,
+    image: img,
   },
   {
     id: 2,
-    name: "DJ SUYOK",
+    name: "EM BREVE",
     genre: "",
-    image: djtwo,
+    image: img,
   },
   {
     id: 3,
-    name: "DJ VIRTU",
+    name: "EM BREVE",
     genre: "",
-    image: djtree,
+    image: img,
   },
 
 ]
@@ -109,22 +109,22 @@ const tickets = [
   {
     id: 1,
     name: "PRIMEIRO LOTE ",
-    price: 31,
-    description: "ESGOTADO",
+    price: 0,
+    description: "  EM BREVE",
     color: "purple",
   },
   {
     id: 2,
     name: "SEGUNDO LOTE",
-    price: 36,
-    description: "ESGOTADO",
+    price: 0,
+    description: "  EM BREVE",
     color: "blue",
   },
     {
     id: 3,
     name: "TERCEIRO LOTE",
-    price: 41,
-    description: "LOTE ATUAL",
+    price: 0,
+    description: "EM BREVE",
     color: "pink",
   }
 ]
@@ -156,7 +156,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    const targetDate = new Date("2025-07-25T21:00:00-03:00") // Horário de Brasília
+    const targetDate = new Date("2025-09-25T21:00:00-03:00") // Horário de Brasília
 
     const timer = setInterval(() => {
       const now = new Date()
@@ -236,7 +236,340 @@ function App() {
   }
 
   return (
-  <>suspenso:(</>
+    <div className="app">
+      {/* Animated Background */}
+      <div className="animated-background">
+        <div className="bg-gradient"></div>
+        <div className="bg-radial"></div>
+        <div className="floating-orb-1"></div>
+        <div className="floating-orb-2"></div>
+      </div>
+
+      {/* Header */}
+      <header className="header">
+        <div>
+          <h1 className="main-title">HALOWEEN DA DIRETORIA</h1>
+          <div className="year-title">
+            {/* <span className="year-digit">D</span>
+            <span className="year-digit">I</span>
+            <span className="year-digit">R</span>
+            <span className="year-digit">E</span>
+            <span className="year-digit">T</span>
+            <span className="year-digit">O</span>
+            <span className="year-digit">R</span>
+            <span className="year-digit">I</span>
+            <span className="year-digit">A</span> */}
+          </div>
+        </div>
+        <p className="subtitle">A festa que vai te transportar de volta aos melhores momentos da década!</p>
+
+        {/* Countdown */}
+        <div className="countdown">
+          {Object.entries(timeLeft).map(([unit, value]) => (
+            <div key={unit} className="countdown-item">
+              <div className="countdown-value">{value.toString().padStart(2, "0")}</div>
+              <div className="countdown-label">{unit}</div>
+            </div>
+          ))}
+        </div>
+
+        <button onClick={scrollToTickets} className="btn btn-primary">
+          GARANTA SEU INGRESSO
+        </button>
+      </header>
+
+      {/* DJs Carousel */}
+      <section className="section">
+        <h2 className="section-title">ATRAÇÕES CONFIRMADAS</h2>
+        <div className="carousel-container">
+          <div className="carousel-wrapper">
+            {/* Desktop Navigation Buttons */}
+            <button onClick={prevDJ} className="btn btn-ghost carousel-nav prev desktop-only">
+              <ChevronLeft className="btn-icon" />
+            </button>
+
+            {/* Carousel Content */}
+            <div
+              className="carousel-content"
+              ref={carouselRef}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
+              {/* Desktop View - Show 3 DJs */}
+              <div className="carousel-desktop">
+                {[-1, 0, 1].map((offset) => {
+                  const index = (currentDJ + offset + djs.length) % djs.length
+                  const dj = djs[index]
+                  const isActive = offset === 0
+                  return (
+                    <div key={`desktop-${dj.id}`} className={`dj-card ${isActive ? "active" : "inactive"}`}>
+                      <div className="dj-card-content">
+                        <div className="dj-image-container">
+                          <img src={dj.image || "/placeholder.svg"} alt={dj.name} className="dj-image" />
+                          {isActive && <div className="dj-glow"></div>}
+                        </div>
+                        <h3 className="dj-name">{dj.name}</h3>
+                        <span className="dj-genre">{dj.genre}</span>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+
+              {/* Mobile View - Show 3 DJs horizontally */}
+              <div className="carousel-mobile">
+                <div className="carousel-track">
+                  {[-1, 0, 1].map((offset) => {
+                    const index = (currentDJ + offset + djs.length) % djs.length
+                    const dj = djs[index]
+                    const isActive = offset === 0
+                    const isSemiActive = Math.abs(offset) === 1
+                    return (
+                      <div
+                        key={`mobile-${dj.id}`}
+                        className={`dj-card-mobile ${isActive ? "active" : isSemiActive ? "semi-active" : ""}`}
+                      >
+                        <div className="dj-card-content">
+                          <div className="dj-image-container">
+                            <img src={dj.image || "/placeholder.svg"} alt={dj.name} className="dj-image" />
+                            {isActive && <div className="dj-glow"></div>}
+                          </div>
+                          <h3 className="dj-name">{dj.name}</h3>
+                          <span className="dj-genre">{dj.genre}</span>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop Navigation Buttons */}
+            <button onClick={nextDJ} className="btn btn-ghost carousel-nav next desktop-only">
+              <ChevronRight className="btn-icon" />
+            </button>
+          </div>
+
+          {/* Mobile Navigation Dots */}
+          <div className="carousel-dots mobile-only">
+            {djs.map((_, index) => (
+              <button
+                key={index}
+                className={`carousel-dot ${index === currentDJ ? "active" : ""}`}
+                onClick={() => setCurrentDJ(index)}
+              />
+            ))}
+          </div>
+
+          {/* Mobile Navigation Buttons */}
+          <div className="carousel-nav-mobile mobile-only">
+            <button onClick={prevDJ} className="btn btn-ghost carousel-nav-btn">
+              <ChevronLeft className="btn-icon" />
+            </button>
+            <button onClick={nextDJ} className="btn btn-ghost carousel-nav-btn">
+              <ChevronRight className="btn-icon" />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Information Accordion */}
+      <section className="section">
+        <div className="container">
+          <h2 className="section-title">INFORMAÇÕES</h2>
+          <div className="accordion">
+            <div className="accordion-item">
+              <button className="accordion-trigger" onClick={() => toggleAccordion("lineup")}>
+                🎵 LINE-UP COMPLETO
+                <ChevronDown className={`accordion-icon ${openAccordion === "lineup" ? "open" : ""}`} />
+              </button>
+              <div className={`accordion-content ${openAccordion === "lineup" ? "" : "closed"}`}>
+                <div className="lineup-grid">
+                  {djs.map((dj) => (
+                  
+                    <div key={dj.id} className="lineup-item">
+                        <br/>
+                      <img src={dj.image || "/placeholder.svg"} alt={dj.name} className="lineup-avatar" />
+                      <div>
+                        <div className="lineup-name">{dj.name}</div>
+                        <div className="lineup-genre">{dj.genre}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="accordion-item">
+              <button className="accordion-trigger purple" onClick={() => toggleAccordion("rules")}>
+                📋 O QUE PODE E O QUE NÃO PODE
+                <ChevronDown className={`accordion-icon ${openAccordion === "rules" ? "open" : ""}`} />
+              </button>
+              <div className={`accordion-content ${openAccordion === "rules" ? "" : "closed"}`}>
+                <div className="rules-grid">
+                  <div className="rules-section allowed">
+                    <br/>
+                    <h4>✅ PERMITIDO:</h4>
+                    <ul className="rules-list">
+                    
+                      <li>• Bic's</li>
+                      <li>• Vapers</li>
+                      <li>• Garrafas de plástico</li>
+                    </ul>
+                  </div>
+                  <div className="rules-section forbidden">
+                    <h4>❌ PROIBIDO:</h4>
+                    <ul className="rules-list">
+                      <li>• Garrafas de vidro</li>
+                      <li>• Objetos cortantes</li>
+                      <li>• Drogas ilícitas</li>
+                      <li>• Brigas</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="accordion-item">
+           
+              <button className="accordion-trigger cyan" onClick={() => toggleAccordion("location")}>
+                📍 LOCAL E HORÁRIO
+                <ChevronDown className={`accordion-icon ${openAccordion === "location" ? "open" : ""}`} />
+              </button>
+              <div className={`accordion-content ${openAccordion === "location" ? "" : "closed"}`}>
+                <div className="space-y-4">
+                  <div className="location-info">
+                    <MapPin className="location-icon" />
+                    <div>
+                      <div className="location-title">Divulgado no dia do Evento!</div>
+                      <div className="location-subtitle">Santa Rita do Passa-Quatro</div>
+                    </div>
+                  </div>
+                  <div className="location-info">
+                    <Clock className="location-icon" />
+                    <div>
+                      <div className="location-title">Sexta-feira, 25 de Julho de 2025</div>
+                      <div className="location-subtitle">21:00 </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="accordion-item">
+             
+              <button className="accordion-trigger" onClick={() => toggleAccordion("tickets-info")}>
+                🎫 INFORMAÇÕES SOBRE INGRESSOS
+                <ChevronDown className={`accordion-icon ${openAccordion === "tickets-info" ? "open" : ""}`} />
+              </button>
+              <div className={`accordion-content ${openAccordion === "tickets-info" ? "" : "closed"}`}>
+              <br/>
+                <div className="space-y-4">
+                  <p>• Ingressos limitados por categoria</p>
+                  <p>• Ingresso via PIX</p>
+                  <p>• Pagou ja cai na lista de pagos automaticamente</p>
+                  <p>• Qualquer dúvida tratar com os adm's</p>
+                  <p>• Clique <span><a href="https://example.com/refund" style={{ color: "blue", textDecoration: "underline" }}>aqui</a></span> para reembolso
+</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tickets Section */}
+      <section id="tickets" className="section">
+        <div className="container">
+          <h2 className="section-title">INGRESSOS</h2>
+          <div className="tickets-grid">
+            {tickets.map((ticket) => (
+              <div key={ticket.id} className={`ticket-card ${ticket.color}`}>
+                <div className="ticket-card-inner">
+                  <h3 className="ticket-name">{ticket.name}</h3>
+                  <p className="ticket-description">{ticket.description}</p>
+                  <div className="ticket-price">R$ {ticket.price}</div>
+                  <button
+                    onClick={() => {
+                      if (ticket.id === 3) {
+                        window.location.href = "https://festfy.shop/"
+                      }
+                    }}
+                    className={`ticket-button ${ticket.color}`}
+                    disabled={ticket.id == 3 && 2 && 1}
+                  >
+                    {/* {ticket.id === 3 ? "COMPRAR AGORA" : "INDISPONÍVEL"} */}
+                    { "INDISPONÍVEL" }
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Modal */}
+      {showModal && selectedTicket && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={closeModal}>
+              <X className="btn-icon" />
+            </button>
+            <h2 className="modal-title">Finalizar Compra</h2>
+            <div className="ticket-summary">
+              <h4 className="summary-name">{selectedTicket.name}</h4>
+              <p className="summary-description">{selectedTicket.description}</p>
+              <p className="summary-price">R$ {selectedTicket.price}</p>
+            </div>
+            <div className="space-y-4">
+              <div className="form-group">
+                <label htmlFor="name" className="form-label">
+                  Nome Completo
+                </label>
+                <input id="name" className="form-input" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="email" className="form-label">
+                  E-mail
+                </label>
+                <input id="email" type="email" className="form-input" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="cpf" className="form-label">
+                  CPF
+                </label>
+                <input id="cpf" className="form-input" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="payment" className="form-label">
+                  Forma de Pagamento
+                </label>
+                <select className="form-select">
+                  <option value="">Selecione</option>
+                  <option value="pix">PIX</option>
+                  <option value="credit">Cartão de Crédito</option>
+                  <option value="boleto">Boleto</option>
+                </select>
+              </div>
+            </div>
+            <button className="btn btn-primary" style={{ width: "100%", marginTop: "1.5rem" }}>
+              FINALIZAR PAGAMENTO
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footer-content">
+          <div className="social-links"></div>
+          <div className="footer-text">
+            <p>© 2025 FESTFY. Todos os direitos reservados.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
   )
 }
 
