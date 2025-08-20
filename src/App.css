@@ -372,7 +372,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #2d1b69 0%, #11001c 100%);
+  background: linear-gradient(135deg, #69341b 0%, #11001c 100%);
   opacity: 0.3;
 }
 
@@ -437,18 +437,17 @@ body {
   position: relative;
   z-index: 1;
 }
-
 .main-title {
   font-family: "Creepster", cursive;
   font-size: clamp(5.5rem, 8vw, 6rem);
   font-weight: 900;
-  background: linear-gradient(45deg, #ff8c00, #4b0082);
+  background: linear-gradient(45deg, #ff8c00, #8a2be2); /* gradiente mais suave */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 1rem;
-  text-shadow: 0 4px 8px rgba(255, 69, 0, 0.8), 0 0 20px rgba(255, 140, 0, 0.6);
-  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* sombra mais sutil */
+  letter-spacing: 1px; /* opcional, menos espalhado */
 }
 
 .year-title {
@@ -582,7 +581,7 @@ body {
   font-weight: 800;
   text-align: center;
   margin-bottom: 3rem;
-  background: linear-gradient(45deg, #ff8c00, #4b0082, #228b22);
+  background: linear-gradient(45deg, #ffffff, #4b0082 );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -827,7 +826,7 @@ body {
 }
 
 .ticket-button.blue {
-  background: linear-gradient(45deg, #228b22, #006400);
+  background: linear-gradient(45deg, #4b0082, #663399);
   color: white;
 }
 

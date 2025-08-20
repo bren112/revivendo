@@ -2,9 +2,11 @@
 import { useState, useEffect, useRef } from "react"
 import "./App.css"
 import img from './embreve.png'
-import djone from './mlkbarulhento.png'
-import djtwo from './suyok.png'
-import djtree from './virtu.png'
+import imgdois from './embreveRed.png'
+import imgtres from './embrevePurble.png'
+// import djone from './mlkbarulhento.png'
+// import djtwo from './suyok.png'
+// import djtree from './virtu.png'
 // Inline SVG Icons
 const ChevronLeft = ({ className }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -60,12 +62,12 @@ const MessageCircle = ({ className }) => (
   </svg>
 )
 
-const Volume2 = ({ className }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
-  </svg>
-)
+// const Volume2 = ({ className }) => (
+//   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//     <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+//     <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+//   </svg>
+// )
 
 const VolumeX = ({ className }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,13 +95,13 @@ const djs = [
     id: 2,
     name: "EM BREVE",
     genre: "",
-    image: img,
+    image: imgdois,
   },
   {
-    id: 3,
+    id: 4,
     name: "EM BREVE",
     genre: "",
-    image: img,
+    image: imgtres,
   },
 
 ]
@@ -364,12 +366,12 @@ function App() {
 
           {/* Mobile Navigation Buttons */}
           <div className="carousel-nav-mobile mobile-only">
-            <button onClick={prevDJ} className="btn btn-ghost carousel-nav-btn">
+            {/* <button onClick={prevDJ} className="btn btn-ghost carousel-nav-btn">
               <ChevronLeft className="btn-icon" />
             </button>
             <button onClick={nextDJ} className="btn btn-ghost carousel-nav-btn">
               <ChevronRight className="btn-icon" />
-            </button>
+            </button> */}
           </div>
         </div>
       </section>
@@ -490,7 +492,8 @@ function App() {
                   <h3 className="ticket-name">{ticket.name}</h3>
                   <p className="ticket-description">{ticket.description}</p>
                   <div className="ticket-price">R$ {ticket.price}</div>
-                  <button
+                  
+                  {/* <button
                     onClick={() => {
                       if (ticket.id === 3) {
                         window.location.href = "https://festfy.shop/"
@@ -500,7 +503,14 @@ function App() {
                     disabled={ticket.id == 3 && 2 && 1}
                   >
                     {/* {ticket.id === 3 ? "COMPRAR AGORA" : "INDISPONÍVEL"} */}
-                    { "INDISPONÍVEL" }
+                    {/* { "INDISPONÍVEL" } */}
+                  {/* </button> } */}
+
+                  <button
+                    className={`ticket-button ${ticket.color}`}
+                    disabled={true}
+                  >
+                    {"INDISPONÍVEL"}
                   </button>
                 </div>
               </div>
@@ -509,57 +519,7 @@ function App() {
         </div>
       </section>
 
-      {/* Modal */}
-      {showModal && selectedTicket && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={closeModal}>
-              <X className="btn-icon" />
-            </button>
-            <h2 className="modal-title">Finalizar Compra</h2>
-            <div className="ticket-summary">
-              <h4 className="summary-name">{selectedTicket.name}</h4>
-              <p className="summary-description">{selectedTicket.description}</p>
-              <p className="summary-price">R$ {selectedTicket.price}</p>
-            </div>
-            <div className="space-y-4">
-              <div className="form-group">
-                <label htmlFor="name" className="form-label">
-                  Nome Completo
-                </label>
-                <input id="name" className="form-input" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email" className="form-label">
-                  E-mail
-                </label>
-                <input id="email" type="email" className="form-input" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="cpf" className="form-label">
-                  CPF
-                </label>
-                <input id="cpf" className="form-input" />
-              </div>
-              <div className="form-group">
-                <label htmlFor="payment" className="form-label">
-                  Forma de Pagamento
-                </label>
-                <select className="form-select">
-                  <option value="">Selecione</option>
-                  <option value="pix">PIX</option>
-                  <option value="credit">Cartão de Crédito</option>
-                  <option value="boleto">Boleto</option>
-                </select>
-              </div>
-            </div>
-            <button className="btn btn-primary" style={{ width: "100%", marginTop: "1.5rem" }}>
-              FINALIZAR PAGAMENTO
-            </button>
-          </div>
-        </div>
-      )}
-
+     
       {/* Footer */}
       <footer className="footer">
         <div className="footer-content">
