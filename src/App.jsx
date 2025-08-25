@@ -111,21 +111,21 @@ const tickets = [
   {
     id: 1,
     name: "PRIMEIRO LOTE ",
-    price: 0,
+    price: 31,
     description: "  EM BREVE",
     color: "purple",
   },
   {
     id: 2,
     name: "SEGUNDO LOTE",
-    price: 0,
+    price: 36,
     description: "  EM BREVE",
     color: "blue",
   },
     {
     id: 3,
     name: "TERCEIRO LOTE",
-    price: 0,
+    price: 40,
     description: "EM BREVE",
     color: "pink",
   }
@@ -423,7 +423,7 @@ function App() {
                   <div className="rules-section forbidden">
                     <h4>❌ PROIBIDO:</h4>
                     <ul className="rules-list">
-                      <li>• Garrafas de vidro</li>
+                      {/* <li>• Garrafas de vidro</li> */}
                       <li>• Objetos cortantes</li>
                       <li>• Drogas ilícitas</li>
                       <li>• Brigas</li>
@@ -451,7 +451,7 @@ function App() {
                   <div className="location-info">
                     <Clock className="location-icon" />
                     <div>
-                      <div className="location-title">Sexta-feira, 25 de Julho de 2025</div>
+                      <div className="location-title">Sábado, 11 de Setembro de 2025</div>
                       <div className="location-subtitle">21:00 </div>
                     </div>
                   </div>
