@@ -263,7 +263,7 @@ function App() {
             <span className="year-digit">A</span> */}
           </div>
         </div>
-        <p className="subtitle">A festa que vai te transportar de volta aos melhores momentos da década!</p>
+        <p className="subtitle">Mais uma da Diretoria, e dessa vez, em nossa melhor versão!!!</p>
 
         {/* Countdown */}
         <div className="countdown">
