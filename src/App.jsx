@@ -158,7 +158,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    const targetDate = new Date("2025-09-25T21:00:00-03:00") // Horário de Brasília
+    const targetDate = new Date("2025-10-11T21:00:00-03:00") // Horário de Brasília
 
     const timer = setInterval(() => {
       const now = new Date()
@@ -451,7 +451,7 @@ function App() {
                   <div className="location-info">
                     <Clock className="location-icon" />
                     <div>
-                      <div className="location-title">Sábado, 11 de Setembro de 2025</div>
+                      <div className="location-title">Sábado, 11 de outubro de 2025</div>
                       <div className="location-subtitle">21:00 </div>
                     </div>
                   </div>
