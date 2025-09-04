@@ -135,7 +135,12 @@
   gap: 1rem;
   margin-top: 1rem;
 }
-
+/* Estilo para os botões desabilitados */
+.ticket-button.disabled {
+  background-color: #d3d3d3; /* Cor cinza */
+  color: #808080; /* Texto cinza */
+  cursor: not-allowed; /* Cursor indicando que está desabilitado */
+}
 .carousel-nav-btn {
   width: 48px;
   height: 48px;

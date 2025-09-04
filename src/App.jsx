@@ -506,12 +506,18 @@ function App() {
                     {/* { "INDISPONÍVEL" } */}
                   {/* </button> } */}
 
-                  <button
-                    className={`ticket-button ${ticket.color}`}
-                    disabled={true}
-                  >
-                    {"INDISPONÍVEL"}
-                  </button>
+      
+                <button
+                  className={`ticket-button ${ticket.id === 1 ? ticket.color : "disabled"}`}
+                  disabled={ticket.id !== 1} // Desabilita os botões dos outros lotes
+                  onClick={() => {
+                    if (ticket.id === 1) {
+                      window.location.href = "https://festfy.site/";
+                    }
+                  }}
+                >
+                  {ticket.id === 1 ? "COMPRAR AGORA" : "INDISPONÍVEL"}
+                </button>
                 </div>
               </div>
             ))}
