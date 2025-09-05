@@ -110,21 +110,21 @@ const tickets = [
 
   {
     id: 1,
-    name: "PRIMEIRO LOTE ",
+    name: "LOTE PROMOCIONAL",
     price: 26,
-    description: "  EM BREVE",
+    description: "INGRESSOS LIMITADOS",
     color: "purple",
   },
   {
     id: 2,
-    name: "SEGUNDO LOTE",
+    name: "PRIMEIRO LOTE",
     price: 31,
     description: "  EM BREVE",
     color: "blue",
   },
     {
     id: 3,
-    name: "TERCEIRO LOTE",
+    name: "SEGUNDO LOTE",
     price: 36,
     description: "EM BREVE",
     color: "pink",
