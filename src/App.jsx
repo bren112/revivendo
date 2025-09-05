@@ -111,21 +111,21 @@ const tickets = [
   {
     id: 1,
     name: "PRIMEIRO LOTE ",
-    price: 31,
+    price: 26,
     description: "  EM BREVE",
     color: "purple",
   },
   {
     id: 2,
     name: "SEGUNDO LOTE",
-    price: 36,
+    price: 31,
     description: "  EM BREVE",
     color: "blue",
   },
     {
     id: 3,
     name: "TERCEIRO LOTE",
-    price: 41,
+    price: 36,
     description: "EM BREVE",
     color: "pink",
   }
