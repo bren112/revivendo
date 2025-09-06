@@ -112,14 +112,14 @@ const tickets = [
     id: 1,
     name: "LOTE PROMOCIONAL",
     price: 26,
-    description: "INGRESSOS LIMITADOS",
+    description: "ESGOTADO!",
     color: "purple",
   },
   {
     id: 2,
     name: "PRIMEIRO LOTE",
     price: 31,
-    description: "  EM BREVE",
+    description: " LOTE ATUAL",
     color: "blue",
   },
     {
@@ -516,7 +516,7 @@ function App() {
                     }
                   }}
                 >
-                  {ticket.id === 1 ? "COMPRAR AGORA" : "INDISPONÍVEL"}
+                  {ticket.id === 2 ? "COMPRAR AGORA" : "INDISPONÍVEL"}
                 </button>
                 </div>
               </div>
