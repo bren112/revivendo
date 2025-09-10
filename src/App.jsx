@@ -126,7 +126,7 @@ const tickets = [
     id: 3,
     name: "SEGUNDO LOTE",
     price: 36,
-    description: "EM BREVE",
+    description: "EM BREVE!",
     color: "pink",
   }
 ]
