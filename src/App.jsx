@@ -508,10 +508,10 @@ function App() {
 
       
                 <button
-                  className={`ticket-button ${ticket.id === 2 ? ticket.color : "disabled"}`}
-                  disabled={ticket.id !== 2} // Desabilita os botões dos outros lotes
+                  className={`ticket-button ${ticket.id === 3 ? ticket.color : "disabled"}`}
+                  disabled={ticket.id !== 3} // Desabilita os botões dos outros lotes
                   onClick={() => {
-                    if (ticket.id === 2) {
+                    if (ticket.id === 3) {
                       window.location.href = "https://festfy.site/";
                     }
                   }}
