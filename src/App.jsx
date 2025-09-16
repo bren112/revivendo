@@ -417,16 +417,17 @@ function App() {
                     
                       <li>• Bic's</li>
                       <li>• Vapers</li>
-                      <li>• Garrafas de plástico</li>
+                      <li>• Embalagens de plástico</li>
+                      <li>• Fantasias e Maquiagens temáticas</li>
                     </ul>
                   </div>
                   <div className="rules-section forbidden">
                     <h4>❌ PROIBIDO:</h4>
                     <ul className="rules-list">
-                      {/* <li>• Garrafas de vidro</li> */}
-                      <li>• Objetos cortantes</li>
+                      <li>• Garrafas de vidro</li>
+                      <li>• Objetos perfuro-cortantes ou pontiagudos</li>
                       <li>• Drogas ilícitas</li>
-                      <li>• Brigas</li>
+                      <li>• Briga ou qualquer outra forma de desrespeito.</li>
                     </ul>
                   </div>
                 </div>
@@ -468,10 +469,11 @@ function App() {
               <div className={`accordion-content ${openAccordion === "tickets-info" ? "" : "closed"}`}>
               <br/>
                 <div className="space-y-4">
-                  <p>• Ingressos limitados por categoria</p>
-                  <p>• Ingresso via PIX</p>
-                  <p>• Pagou ja cai na lista de pagos automaticamente</p>
-                  <p>• Qualquer dúvida tratar com os adm's</p>
+                  <p>• Ingressos limitados por Lotes</p>
+                  <p>• Pagamento via PIX</p>
+                  <p>• Após o pagamento, seu nome estará na relação de pagos!</p>
+                  <p>• Falar o nome cadastrado na portaria para à entrada!</p>
+                  {/* <p>• Qualquer dúvida tratar com os adm's</p> */}
                   <p>• Clique <span><a href="https://example.com/refund" style={{ color: "blue", textDecoration: "underline" }}>aqui</a></span> para reembolso
 </p>
                 </div>
