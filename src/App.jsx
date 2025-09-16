@@ -4,7 +4,7 @@ import "./App.css"
 import img from './embreve.png'
 import imgdois from './embreveRed.png'
 import imgtres from './embrevePurble.png'
-// import djone from './mlkbarulhento.png'
+import djone from './mlkbarulhento.png'
 // import djtwo from './suyok.png'
 // import djtree from './virtu.png'
 // Inline SVG Icons
@@ -87,22 +87,16 @@ const X = ({ className }) => (
 const djs = [
   {
     id: 1,
-    name: "EM BREVE",
+    name: "MLK BARULHENTO",
     genre: "",
-    image: img,
+    image: djone,
   },
   {
     id: 2,
     name: "EM BREVE",
     genre: "",
     image: imgdois,
-  },
-  {
-    id: 4,
-    name: "EM BREVE",
-    genre: "",
-    image: imgtres,
-  },
+  }
 
 ]
 
@@ -286,9 +280,7 @@ function App() {
         <div className="carousel-container">
           <div className="carousel-wrapper">
             {/* Desktop Navigation Buttons */}
-            <button onClick={prevDJ} className="btn btn-ghost carousel-nav prev desktop-only">
-              <ChevronLeft className="btn-icon" />
-            </button>
+           
 
             {/* Carousel Content */}
             <div
@@ -300,10 +292,8 @@ function App() {
             >
               {/* Desktop View - Show 3 DJs */}
               <div className="carousel-desktop">
-                {[-1, 0, 1].map((offset) => {
-                  const index = (currentDJ + offset + djs.length) % djs.length
-                  const dj = djs[index]
-                  const isActive = offset === 0
+                {djs.map((dj, idx) => {
+                  const isActive = idx === currentDJ
                   return (
                     <div key={`desktop-${dj.id}`} className={`dj-card ${isActive ? "active" : "inactive"}`}>
                       <div className="dj-card-content">
@@ -319,38 +309,14 @@ function App() {
                 })}
               </div>
 
+
               {/* Mobile View - Show 3 DJs horizontally */}
-              <div className="carousel-mobile">
-                <div className="carousel-track">
-                  {[-1, 0, 1].map((offset) => {
-                    const index = (currentDJ + offset + djs.length) % djs.length
-                    const dj = djs[index]
-                    const isActive = offset === 0
-                    const isSemiActive = Math.abs(offset) === 1
-                    return (
-                      <div
-                        key={`mobile-${dj.id}`}
-                        className={`dj-card-mobile ${isActive ? "active" : isSemiActive ? "semi-active" : ""}`}
-                      >
-                        <div className="dj-card-content">
-                          <div className="dj-image-container">
-                            <img src={dj.image || "/placeholder.svg"} alt={dj.name} className="dj-image" />
-                            {isActive && <div className="dj-glow"></div>}
-                          </div>
-                          <h3 className="dj-name">{dj.name}</h3>
-                          <span className="dj-genre">{dj.genre}</span>
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
+   
+
             </div>
 
             {/* Desktop Navigation Buttons */}
-            <button onClick={nextDJ} className="btn btn-ghost carousel-nav next desktop-only">
-              <ChevronRight className="btn-icon" />
-            </button>
+     
           </div>
 
           {/* Mobile Navigation Dots */}
@@ -388,17 +354,17 @@ function App() {
               </button>
               <div className={`accordion-content ${openAccordion === "lineup" ? "" : "closed"}`}>
                 <div className="lineup-grid">
-                  {djs.map((dj) => (
-                  
-                    <div key={dj.id} className="lineup-item">
-                        <br/>
-                      <img src={dj.image || "/placeholder.svg"} alt={dj.name} className="lineup-avatar" />
-                      <div>
-                        <div className="lineup-name">{dj.name}</div>
-                        <div className="lineup-genre">{dj.genre}</div>
-                      </div>
+                {[...new Map(djs.map(dj => [dj.name, dj])).values()].map((dj) => (
+                  <div key={dj.id} className="lineup-item">
+                    <br/>
+                    <img src={dj.image || "/placeholder.svg"} alt={dj.name} className="lineup-avatar" />
+                    <div>
+                      <div className="lineup-name">{dj.name}</div>
+                      <div className="lineup-genre">{dj.genre}</div>
                     </div>
-                  ))}
+                  </div>
+))}
+
                 </div>
               </div>
             </div>
