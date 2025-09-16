@@ -329,6 +329,27 @@ function App() {
               />
             ))}
           </div>
+{/* Mobile View - Show 1 DJ at a time */}
+<div className="carousel-mobile">
+  {djs.map((dj, idx) => {
+    const isActive = idx === currentDJ
+    return (
+      <div
+        key={`mobile-${dj.id}`}
+        className={`dj-card-mobile ${isActive ? "active" : ""}`}
+      >
+        <div className="dj-card-content">
+          <div className="dj-image-container">
+            <img src={dj.image || "/placeholder.svg"} alt={dj.name} className="dj-image" />
+            {isActive && <div className="dj-glow"></div>}
+          </div>
+          <h3 className="dj-name">{dj.name}</h3>
+          <span className="dj-genre">{dj.genre}</span>
+        </div>
+      </div>
+    )
+  })}
+</div>
 
           {/* Mobile Navigation Buttons */}
           <div className="carousel-nav-mobile mobile-only">
